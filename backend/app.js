@@ -27,7 +27,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: ['https://rolandsallaz.mesto.nomoredomains.work',
+    'http://rolandsallaz.mesto.nomoredomains.work',
+    'localhost:3000'],
+}));
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
