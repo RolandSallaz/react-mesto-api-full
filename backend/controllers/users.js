@@ -88,6 +88,7 @@ const login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 60 * 60 * 24 * 7,
           httpOnly: true,
+          domain: 'rolandsallaz.mesto.nomoredomains.work',
         })
         .send('Succes')
         .end();
