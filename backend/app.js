@@ -11,6 +11,11 @@ const ValidationError = require('./errors/ValidationError');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const allowedCors = [
+  'https://rolandsallaz.mesto.nomoredomains.work',
+  'http://rolandsallaz.mesto.nomoredomains.work',
+  'localhost:3000',
+];
 const { PORT = 3000 } = process.env;
 const app = express();
 const validateURL = (value) => {
@@ -19,10 +24,7 @@ const validateURL = (value) => {
   }
   return value;
 };
-const corsOptions = {
-  origin: 'http://rolandsallaz.mesto.nomoredomains.work',
-  optionsSuccessStatus: 200,
-};
+
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
@@ -30,7 +32,17 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors(corsOptions));
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedCors.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not '
+        + 'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+}));
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
