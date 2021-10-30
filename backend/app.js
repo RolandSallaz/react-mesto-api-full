@@ -34,6 +34,14 @@ app.use(cors({
     'http://localhost:3000'],
 }));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  next();
+});
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
