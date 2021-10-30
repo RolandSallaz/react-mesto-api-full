@@ -25,7 +25,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(express.json());
 app.use(cookieParser());
-//app.use(requestLogger);
+app.use(requestLogger);
 app.use(cors);
 
 app.post('/signup', celebrate({
@@ -49,7 +49,7 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
-//app.use(errorLogger);
+app.use(errorLogger);
 
 app.use(() => {
   throw new NotFoundError('404 Страница не найдена');
