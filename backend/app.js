@@ -4,12 +4,12 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const validator = require('validator');
+const cors = require('cors');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const ValidationError = require('./errors/ValidationError');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('./middlewares/cors');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -19,6 +19,10 @@ const validateURL = (value) => {
   }
   return value;
 };
+const corsOptions = {
+  origin: 'http://rolandsallaz.mesto.nomoredomains.work',
+  optionsSuccessStatus: 200,
+};
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
@@ -26,7 +30,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors);
+app.use(cors(corsOptions));
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
