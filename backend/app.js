@@ -31,7 +31,7 @@ app.use(cors({
   credentials: true,
   origin: ['https://rolandsallaz.mesto.nomoredomains.work',
     'http://rolandsallaz.mesto.nomoredomains.work',
-    'http://localhost:3000'],
+    'http://localhost:3001'],
 }));
 
 app.post('/signup', celebrate({
