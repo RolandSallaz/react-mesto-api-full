@@ -24,7 +24,7 @@ const getUser = (req, res, next) => {
       res
         .status(200)
         .send({
-          name: user.name, about: user.about, avatar: user.avatar, email,
+          name: user.name, about: user.about, avatar: user.avatar, email: user.email,
         });
     })
     .catch(next);
@@ -101,7 +101,7 @@ const getCurrentUser = (req, res, next) => {
       if (!user) {
         throw new AuthError('Необходима авторизация');
       }
-      res.send({ user });
+      res.send(user);
     })
     .catch(next);
 };

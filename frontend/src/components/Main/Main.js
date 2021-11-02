@@ -12,7 +12,7 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike
       </Header>
       <main className="content">
         <section className="profile">
-          <button className="profile__avatar" onClick={onEditAvatar} style={{ backgroundImage: `url(${currentUser.user.avatar})` }} >
+          <button className="profile__avatar" onClick={onEditAvatar} style={{ backgroundImage: `url(${currentUser.avatar})` }} >
             <div className="profile__edit"></div>
           </button>
           <div className="profile__info">
