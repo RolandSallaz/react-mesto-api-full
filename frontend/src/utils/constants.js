@@ -1,4 +1,5 @@
-const apiUrl = 'https://rolandsallaz.mesto.nomore.nomoredomains.work/';
 
+
+const apiUrl = 'http://localhost:3000/';
 
 export { apiUrl };

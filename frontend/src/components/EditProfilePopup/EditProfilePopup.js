@@ -14,8 +14,8 @@ function EditProfilePopup(props) {
     }
     useEffect(() => {
         if (currentUser) {
-            setName(currentUser.user.name);
-            setDescription(currentUser.user.about);
+            setName(currentUser.name);
+            setDescription(currentUser.about);
         }
     }, [currentUser, props.isOpen]);
     return (<PopupWithForm

@@ -171,7 +171,6 @@ function App() {
         .catch(err => console.log(`Ошибка при получении карточек err ${err}`));
     }
   }, [loggedIn]);
-
   return (
     <Switch>
       <CurrentUserContext.Provider value={currentUser}>
