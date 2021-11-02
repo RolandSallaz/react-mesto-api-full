@@ -23,7 +23,9 @@ const getUser = (req, res, next) => {
       }
       res
         .status(200)
-        .send(user);
+        .send({
+          name: user.name, about: user.about, avatar: user.avatar, email,
+        });
     })
     .catch(next);
 };
@@ -39,9 +41,7 @@ function createUser(req, res, next) {
     .then((user) => {
       res
         .send({
-          data: {
-            name: user.name, about: user.about, avatar: user.avatar, email,
-          },
+          name: user.name, about: user.about, avatar: user.avatar, email,
         });
     })
     .catch((err) => {

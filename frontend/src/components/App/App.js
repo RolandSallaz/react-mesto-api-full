@@ -78,7 +78,7 @@ function App() {
     setIsLoading(true);
     api
       .changerAvatar(avatar)
-      .then(res => { setCurrentUser(res); closeAllPopups(); console.log(currentUser) })
+      .then(res => { setCurrentUser(res); closeAllPopups(); })
       .catch(err => console.log(err))
       .finally(() => { setIsLoading(false) });
   }
