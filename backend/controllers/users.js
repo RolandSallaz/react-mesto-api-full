@@ -63,7 +63,9 @@ function updateUser(req, res, next) {
         throw new NotFoundError('Нет пользователя с таким id');
       }
       res
-        .send({ message: 'Информация о пользователе обновлена' });
+        .send({
+          name: user.name, about: user.about, avatar: user.avatar, email: user.email,
+        });
     })
     .catch(next);
 }
