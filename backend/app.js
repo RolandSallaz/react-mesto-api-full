@@ -33,7 +33,11 @@ app.use(cors({
     'http://rolandsallaz.mesto.nomoredomains.work',
     'http://localhost:3001'],
 }));
-
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
@@ -49,7 +53,6 @@ app.post('/signin', celebrate({
     password: Joi.string().required().min(8),
   }),
 }), login);
-
 app.use(auth);
 
 app.use('/users', require('./routes/users'));

@@ -14,11 +14,11 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  return Card.create({ name, link, owner: req.user._id })
+  return Card.create({ name, link, owner: { _id: req.user._id } })
     .then((card) => {
       res
         .status(200)
-        .send({ card });
+        .send(card);
     })
     .catch(next);
 };
@@ -32,7 +32,7 @@ const deleteCard = (req, res, next) => {
         throw new NotFoundError('Нет карточки по заданному id');
       }
 
-      if (card.owner.toString() !== userId) {
+      if (card.owner._id.toString() !== userId) {
         throw new NoPermissionError('Вы можете удалять только собственные карточки');
       }
       return Card.findByIdAndDelete(cardId)
@@ -53,7 +53,7 @@ const likeCard = (req, res, next) => Card.findByIdAndUpdate(req.params.cardId,
     }
     res
       .status(200)
-      .send({ message: 'Лайк успешно поставлен' });
+      .send(card);
   })
   .catch(next);
 
@@ -66,7 +66,7 @@ const dislikeCard = (req, res, next) => Card.findByIdAndUpdate(req.params.cardId
     }
     res
       .status(200)
-      .send({ message: 'Лайк успешно удален' });
+      .send(card);
   })
   .catch(next);
 

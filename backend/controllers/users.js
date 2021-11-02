@@ -68,14 +68,14 @@ function updateUser(req, res, next) {
     .catch(next);
 }
 const updateUserAvatar = (req, res, next) => User.findByIdAndUpdate(req.user._id,
-  { avatar: req.body.link },
+  { avatar: req.body.avatar },
   { new: true, runValidators: true })
   .then((user) => {
     if (!user) {
       throw new NotFoundError('Нет пользователя с таким id');
     }
     res
-      .send({ message: 'Аватар пользователя обновлен' });
+      .send({ user });
   })
   .catch(next);
 const login = (req, res, next) => {
@@ -84,10 +84,10 @@ const login = (req, res, next) => {
     .then((user) => {
       const { JWT_SECRET = 'dd4363ae6ef2daa8a66e2ab5e432ac9c7aea658a6c9da53e7e9d1001531adc71' } = process.env;
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-      res
+      return res
         .cookie('jwt', token, {
-          maxAge: 60 * 60 * 24 * 7,
-          secure: true,
+          maxAge: 60 * 60 * 24 * 7 * 1000,
+          httpOnly: true,
         })
         .send({ token })
         .end();

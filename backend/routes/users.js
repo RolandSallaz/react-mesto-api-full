@@ -33,7 +33,7 @@ router.get(
 router.patch(
   '/me/avatar', celebrate({
     body: Joi.object().keys({
-      link: Joi.string().custom(validateURL).required(),
+      avatar: Joi.string().custom(validateURL).required(),
     }),
   }), updateUserAvatar,
 );

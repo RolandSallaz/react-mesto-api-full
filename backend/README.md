@@ -2,8 +2,10 @@
 
 ## О проекте
 
-Mesto express это бекенд часть проекта Mesto.
-Проект написан на Express , mongoose
+Связь проектов Express-mesto и Mesto-react
+
+ip адрес проекта: 3.138.195.219
+домен: https://rolandsallaz.mesto.nomoredomains.work
 
 ## Запуск проекта
 
