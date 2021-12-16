@@ -31,7 +31,7 @@ app.use(cors({
   credentials: true,
   origin: ['https://rolandsallaz.mesto.nomoredomains.work',
     'http://rolandsallaz.mesto.nomoredomains.work',
-    'http://localhost:3000'],
+    'http://localhost:3001'],
 }));
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -58,11 +58,12 @@ app.use(auth);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
 
-app.use(errorLogger);
-
 app.use(() => {
   throw new NotFoundError('404 Страница не найдена');
 });
+
+app.use(errorLogger);
+
 app.use(errors());
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
